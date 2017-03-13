@@ -33,7 +33,7 @@ module ActivityScraper
     config.active_record.raise_in_transactional_callbacks = true
 
     config.middleware.use OmniAuth::Builder do
-      provider :developer unless Rails.env.production?
+      provider :developer
     end
   end
 end
