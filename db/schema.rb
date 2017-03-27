@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170326181428) do
+ActiveRecord::Schema.define(version: 20170326210336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "strava_id"
+    t.string   "name"
+    t.datetime "start_date"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["strava_id"], name: "index_activities_on_strava_id", unique: true, using: :btree
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -28,4 +40,5 @@ ActiveRecord::Schema.define(version: 20170326181428) do
 
   add_index "users", ["strava_uid"], name: "index_users_on_strava_uid", unique: true, using: :btree
 
+  add_foreign_key "activities", "users"
 end
